@@ -1,0 +1,14 @@
+<div class="canva-embed">
+    <h4>📊 Live Aether-Score Stats</h4>
+    <div class="stats-widget">
+        <div class="stat-box">
+            <div class="stat-number">312</div>
+            <div class="stat-label">Developers</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">647</div>
+            <div class="stat-label">Avg Score</div>
+        </div>
+    </div>
+    <a href="https://aether-score.vercel.app" class="btn">View Full Dashboard</a>
+</div>
