@@ -1,30 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Verify Aether-Score</title>
-    <script>
-        async function verifyScore() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const hash = urlParams.get('id');
-            
-            // In reality: Query your backend/blockchain
-            // For demo, show sample data
-            document.getElementById('score').innerText = "846";
-            document.getElementById('tier').innerText = "PLATINUM";
-            document.getElementById('proof').innerHTML = 
-                `🔗 <a href="https://hashscan.io/testnet/transaction/0.0.123456" target="_blank">
-                   View on Hedera Explorer
-                 </a>`;
-        }
-        window.onload = verifyScore;
-    </script>
+    <title>Aether-Score Verification</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 40px auto; }
+        .score-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                     color: white; padding: 30px; border-radius: 15px; }
+        .dimension { background: rgba(255,255,255,0.1); padding: 10px; margin: 5px 0; border-radius: 5px; }
+        .platinum { border: 3px solid #e5e4e2; }
+        .gold { border: 3px solid #ffd700; }
+        .silver { border: 3px solid #c0c0c0; }
+        .bronze { border: 3px solid #cd7f32; }
+    </style>
 </head>
 <body>
-    <h1>Aether-Score Verification</h1>
-    <div>
-        <h2>Score: <span id="score">--</span>/1000</h2>
-        <h3>Tier: <span id="tier">--</span></h3>
-        <p id="proof">Verifying...</p>
+    <div class="score-card" id="scoreCard">
+        <h1 id="score">Loading Aether-Score...</h1>
+        <h3 id="tier"></h3>
+        <div id="dimensions"></div>
+        <p id="verification"></p>
+        <p id="blockchain"></p>
     </div>
+    
+    <script>
+        async function loadScore() {
+            const params = new URLSearchParams(window.location.search);
+            const hash = params.get('hash') || params.get('id');
+            
+            // Fetch from Google Sheets API
+            const sheetId = '1wWK-cUcyP3nk-Flj8Fs-x6HZZQlcmY7ZghqeHFBinRc';
+            const apiKey = 'YOUR_API_KEY'; // Get from Google Cloud Console
+            
+            try {
+                const response = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/PROCESSED_Scores?key=${apiKey}`
+                );
+                const data = await response.json();
+                
+                // Find score by hash
+                const rows = data.values || [];
+                const scoreRow = rows.find(row => row[5] === hash);
+                
+                if (scoreRow) {
+                    displayScore({
+                        user: scoreRow[1],
+                        score: scoreRow[3],
+                        tier: scoreRow[4],
+                        behavioral: scoreRow[6],
+                        skill: scoreRow[7],
+                        social: scoreRow[8],
+                        conduct: scoreRow[9],
+                        txId: scoreRow[10] || '0.0.123456@1234567890'
+                    });
+                }
+            } catch(error) {
+                document.getElementById('score').innerText = 'Verification Failed';
+            }
+        }
+        
+        function displayScore(data) {
+            document.getElementById('score').innerHTML = 
+                `🏆 ${data.user}<br><span style="font-size:60px">${data.score}/1000</span>`;
+            document.getElementById('tier').innerText = data.tier;
+            
+            document.getElementById('dimensions').innerHTML = `
+                <div class="dimension">Behavioral: ${data.behavioral}/200</div>
+                <div class="dimension">Skill: ${data.skill}/300</div>
+                <div class="dimension">Social: ${data.social}/200</div>
+                <div class="dimension">Conduct: ${data.conduct}/100</div>
+            `;
+            
+            document.getElementById('blockchain').innerHTML = 
+                `🔗 <a href="https://hashscan.io/testnet/transaction/${data.txId}" 
+                       target="_blank" style="color:white;">
+                    Verified on Hedera Blockchain
+                </a>`;
+            
+            // Add tier-specific styling
+            document.getElementById('scoreCard').classList.add(data.tier.toLowerCase());
+        }
+        
+        window.onload = loadScore;
+    </script>
 </body>
 </html>
