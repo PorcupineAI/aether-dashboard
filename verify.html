@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Aether-Score</title>
+    <script>
+        async function verifyScore() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hash = urlParams.get('id');
+            
+            // In reality: Query your backend/blockchain
+            // For demo, show sample data
+            document.getElementById('score').innerText = "846";
+            document.getElementById('tier').innerText = "PLATINUM";
+            document.getElementById('proof').innerHTML = 
+                `🔗 <a href="https://hashscan.io/testnet/transaction/0.0.123456" target="_blank">
+                   View on Hedera Explorer
+                 </a>`;
+        }
+        window.onload = verifyScore;
+    </script>
+</head>
+<body>
+    <h1>Aether-Score Verification</h1>
+    <div>
+        <h2>Score: <span id="score">--</span>/1000</h2>
+        <h3>Tier: <span id="tier">--</span></h3>
+        <p id="proof">Verifying...</p>
+    </div>
+</body>
+</html>
