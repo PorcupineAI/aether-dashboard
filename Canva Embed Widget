@@ -10,5 +10,5 @@
             <div class="stat-label">Avg Score</div>
         </div>
     </div>
-    <a href="https://aether-score.vercel.app" class="btn">View Full Dashboard</a>
+    <a href="https://aether-score-two.vercel.app" class="btn">View Full Dashboard</a>
 </div>
