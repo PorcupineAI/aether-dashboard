@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether-Score Verification</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏆</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <div class="verification-card">
+            <!-- Loading State -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <h2>Verifying Your Aether-Score...</h2>
+                <p>Fetching your verified developer trust score</p>
+            </div>
+
+            <!-- Score Display (Hidden by default) -->
+            <div class="score-display" id="scoreDisplay" style="display: none;">
+                <div class="header">
+                    <h1>🏆 Aether-Score</h1>
+                    <p class="subtitle">Verified Developer Trust Protocol</p>
+                </div>
+
+                <div class="score-main">
+                    <div class="score-number" id="scoreValue">850</div>
+                    <div class="score-max">/1000</div>
+                    <div class="tier-badge" id="tierBadge">PLATINUM</div>
+                </div>
+
+                <div class="user-info">
+                    <div class="github-info">
+                        <img src="https://github.githubassets.com/favicons/favicon.png" alt="GitHub" class="github-icon">
+                        <span id="githubUsername">@githubuser</span>
+                    </div>
+                    <div class="verification-time" id="verificationTime"></div>
+                </div>
+
+                <div class="dimensions">
+                    <h3>📊 Trust Dimensions</h3>
+                    <div class="dimension">
+                        <span>Behavioral Reliability</span>
+                        <div class="dimension-score" id="behavioralScore">185/200</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 92.5%"></div></div>
+                    </div>
+                    <div class="dimension">
+                        <span>Skill Competency</span>
+                        <div class="dimension-score" id="skillScore">265/300</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 88.3%"></div></div>
+                    </div>
+                    <div class="dimension">
+                        <span>Social Trust</span>
+                        <div class="dimension-score" id="socialScore">180/200</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+                    </div>
+                    <div class="dimension">
+                        <span>Digital Conduct</span>
+                        <div class="dimension-score" id="conductScore">95/100</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+                    </div>
+                </div>
+
+                <div class="verification-section">
+                    <h3>🔗 Verification Proof</h3>
+                    <div class="hash-box" id="verificationHash">Loading...</div>
+                    <p class="verification-note">This unique hash verifies your score on our secure ledger</p>
+                </div>
+
+                <div class="actions">
+                    <a href="https://your-canva-link.com" class="btn btn-primary" id="getScoreBtn">
+                        🚀 Get Your Score
+                    </a>
+                    <button class="btn btn-secondary" onclick="shareScore()" id="shareBtn">
+                        📤 Share Score
+                    </button>
+                    <a href="https://github.com/yourusername/aether-verification" class="btn btn-ghost">
+                        ⭐ Star on GitHub
+                    </a>
+                </div>
+
+                <div class="footer">
+                    <p>Secured via GitHub Pages • Powered by Google Sheets API</p>
+                    <p class="footer-note">This verification is permanent and can be shared anywhere</p>
+                </div>
+            </div>
+
+            <!-- Error Display -->
+            <div class="error-display" id="errorDisplay" style="display: none;">
+                <h2>❌ Verification Failed</h2>
+                <p id="errorMessage">Unable to verify your score. Please try again.</p>
+                <a href="https://your-canva-link.com" class="btn btn-primary">Get New Score</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Sheets API Script -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Google Analytics (Optional) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+</body>
+</html>
