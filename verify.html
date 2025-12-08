@@ -1,167 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Aether-Score Verification</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-        .score {
-            font-size: 72px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 20px 0;
-        }
-        .tier {
-            display: inline-block;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .platinum { background: #e5e4e2; color: #333; }
-        .gold { background: #ffd700; color: #333; }
-        .silver { background: #c0c0c0; color: #333; }
-        .bronze { background: #cd7f32; color: white; }
-        .dimensions { margin: 30px 0; }
-        .dimension { 
-            display: flex; 
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-    </style>
+    <title>Aether-Score Verification</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-    <div class="card">
-        <h1>Aether-Score Verification</h1>
-        <div id="loading">Loading your score...</div>
-        
-        <div id="scoreDisplay" style="display:none;">
-            <div class="score" id="scoreValue">850</div>
-            <div class="tier" id="tierValue">PLATINUM</div>
-            <p id="githubUser">@username</p>
+    <div class="container">
+        <div class="verification-card" id="card">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Verifying your Aether-Score...</p>
+            </div>
             
-            <div class="dimensions">
-                <div class="dimension">
-                    <span>Behavioral Reliability</span>
-                    <span id="behavioral">185/200</span>
+            <div class="score-display" id="scoreDisplay" style="display:none;">
+                <div class="header">
+                    <h1>🏆 Aether-Score</h1>
+                    <p class="subtitle">Verified Developer Trust Score</p>
                 </div>
-                <div class="dimension">
-                    <span>Skill Competency</span>
-                    <span id="skill">265/300</span>
+                
+                <div class="main-score">
+                    <div class="score-number" id="scoreNumber">850</div>
+                    <div class="score-max">/1000</div>
+                    <div class="tier-badge" id="tierBadge">PLATINUM</div>
                 </div>
-                <div class="dimension">
-                    <span>Social Trust</span>
-                    <span id="social">180/200</span>
+                
+                <div class="user-info">
+                    <div class="github-user">
+                        <img src="https://github.githubassets.com/favicon.ico" alt="GitHub" class="github-icon">
+                        <span id="githubUsername">@torvalds</span>
+                    </div>
+                    <div class="verification-time" id="verificationTime"></div>
                 </div>
-                <div class="dimension">
-                    <span>Digital Conduct</span>
-                    <span id="conduct">95/100</span>
+                
+                <div class="dimensions">
+                    <h3>Trust Dimensions</h3>
+                    <div class="dimension-row">
+                        <span>Behavioral Reliability</span>
+                        <div class="dimension-score" id="behavioralScore">185/200</div>
+                    </div>
+                    <div class="dimension-row">
+                        <span>Skill Competency</span>
+                        <div class="dimension-score" id="skillScore">265/300</div>
+                    </div>
+                    <div class="dimension-row">
+                        <span>Social Trust</span>
+                        <div class="dimension-score" id="socialScore">180/200</div>
+                    </div>
+                    <div class="dimension-row">
+                        <span>Digital Conduct</span>
+                        <div class="dimension-score" id="conductScore">95/100</div>
+                    </div>
+                </div>
+                
+                <div class="verification-proof">
+                    <h3>🔗 Verification Proof</h3>
+                    <div class="hash-display" id="verificationHash">38495981ade35694</div>
+                    <p class="note">This hash is unique to your score and permanently recorded.</p>
+                </div>
+                
+                <div class="actions">
+                    <a href="https://your-canva-link.com" class="btn-primary">Get Your Score</a>
+                    <a href="dashboard.html" class="btn-secondary">View Leaderboard</a>
+                    <button onclick="shareScore()" class="btn-share">📤 Share Score</button>
+                </div>
+                
+                <div class="footer">
+                    <p>Verified via GitHub Pages • Secured by Google Sheets API</p>
                 </div>
             </div>
             
-            <p id="verificationHash" style="font-family: monospace; background: #f5f5f5; padding: 10px; border-radius: 5px; margin: 20px 0; word-break: break-all;"></p>
-            
-            <a href="https://aether-dashboard-seven.vercel.app" class="btn">
-                Get Your Own Score
-            </a>
+            <div class="error-message" id="errorMessage" style="display:none;">
+                <h2>⚠️ Verification Failed</h2>
+                <p>We couldn't verify your Aether-Score. Possible reasons:</p>
+                <ul>
+                    <li>Verification link expired</li>
+                    <li>Invalid verification hash</li>
+                    <li>Score not found in our database</li>
+                </ul>
+                <a href="https://your-canva-link.com" class="btn-primary">Get New Score</a>
+            </div>
         </div>
     </div>
 
-    <script>
-        async function loadScore() {
-            // Get parameters from URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const hash = urlParams.get('hash');
-            const user = urlParams.get('user');
-            
-            if (!hash) {
-                // Demo mode
-                document.getElementById('scoreDisplay').style.display = 'block';
-                document.getElementById('loading').style.display = 'none';
-                return;
-            }
-            
-            try {
-                // Fetch from Google Sheets API
-                const response = await fetch(
-                    `https://opensheet.elk.sh/YOUR_GOOGLE_SHEET_ID/PROCESSED_Scores`
-                );
-                const data = await response.json();
-                
-                // Find user by verification hash
-                const userData = data.find(row => row[5] === hash); // Column F is hash
-                
-                if (userData) {
-                    displayScore({
-                        user: userData[1], // GitHub User
-                        score: userData[3], // Aether-Score
-                        tier: userData[4], // Tier
-                        behavioral: userData[6], // Behavioral
-                        skill: userData[7], // Skill
-                        social: userData[8], // Social
-                        conduct: userData[9], // Conduct
-                        hash: hash
-                    });
-                } else {
-                    document.getElementById('loading').innerHTML = 'Score not found';
-                }
-                
-            } catch(error) {
-                document.getElementById('loading').innerHTML = 'Error loading score';
-                console.error(error);
-            }
-        }
-        
-        function displayScore(data) {
-            document.getElementById('githubUser').textContent = '@' + data.user;
-            document.getElementById('scoreValue').textContent = data.score;
-            
-            const tierElement = document.getElementById('tierValue');
-            tierElement.textContent = data.tier;
-            tierElement.className = 'tier ' + data.tier.toLowerCase();
-            
-            document.getElementById('behavioral').textContent = data.behavioral + '/200';
-            document.getElementById('skill').textContent = data.skill + '/300';
-            document.getElementById('social').textContent = data.social + '/200';
-            document.getElementById('conduct').textContent = data.conduct + '/100';
-            document.getElementById('verificationHash').textContent = 'Hash: ' + data.hash;
-            
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('scoreDisplay').style.display = 'block';
-        }
-        
-        window.onload = loadScore;
-    </script>
+    <script src="verify.js"></script>
 </body>
 </html>
